@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "232831269069",
+    "project_id": "storeuzzubiju",
+    "storage_bucket": "storeuzzubiju.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232831269069:android:d21ffffeef7f4f66241184",
+        "android_client_info": {
+          "package_name": "br.com.store.uzzubbiju.loja_uzzubiju"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232831269069-stmqb7hmh2tl39gsulbipcan6k6enjid.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.store.uzzubbiju.loja_uzzubiju",
+            "certificate_hash": "095f7f6c9c6882ec45de448489d02437ad6ab3c5"
+          }
+        },
+        {
+          "client_id": "232831269069-1tfbki0iqm19t7ml5pnflbq0otpsdsn1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWwEnfGvTc5n84bgQry8hnqnZNE72QT3E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232831269069-1tfbki0iqm19t7ml5pnflbq0otpsdsn1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
