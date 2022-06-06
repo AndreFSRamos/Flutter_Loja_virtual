@@ -36,7 +36,7 @@ dependencies:
   flutter_staggered_grid_view: ^0.6.1
   cloud_firestore: ^3.1.17
   transparent_image: ^2.0.0
-  scoped_model: ^1.1.0
+  scoped_model: ^2.0.0-nullsafety.0
   firebase_auth: ^3.3.19
   url_launcher: ^6.1.2
   font_awesome_flutter: ^10.1.0

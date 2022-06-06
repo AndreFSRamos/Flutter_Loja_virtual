@@ -1,0 +1,131 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:flutter/material.dart';
+import 'package:loja_uzzubiju/models/user_model.dart';
+import 'package:loja_uzzubiju/screens/singup_screen.dart';
+import 'package:scoped_model/scoped_model.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  final _emailController = TextEditingController();
+  final _passController = TextEditingController();
+  final _scafoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _scafoldKey,
+      appBar: AppBar(
+        title: const Text("ENTRAR"),
+        centerTitle: true,
+        actions: [
+          FlatButton(
+            child: const Text(
+              "CRIAR CONTA",
+              style: TextStyle(fontSize: 16),
+            ),
+            textColor: Colors.white,
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => const SingUpScreen()),
+              );
+            },
+          ),
+        ],
+      ),
+      body: ScopedModelDescendant<UserModel>(
+        builder: (context, child, model) {
+          if (model.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return Form(
+              key: _formKey,
+              child: ListView(
+                padding: const EdgeInsets.all(16),
+                children: [
+                  TextFormField(
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                      hintText: "E-mail",
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (text) {
+                      if (text!.isEmpty || !text.contains("@")) {
+                        return "E-mail Invalido";
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  TextFormField(
+                    controller: _passController,
+                    decoration: const InputDecoration(
+                      hintText: "Senha",
+                    ),
+                    obscureText: true,
+                    validator: (text) {
+                      if (text!.isEmpty || text.length < 6) {
+                        return "Senha invalida";
+                      }
+                      return null;
+                    },
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: FlatButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "Esqueci minha senha!",
+                        textAlign: TextAlign.right,
+                      ),
+                      padding: const EdgeInsets.all(0),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  RaisedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {}
+
+                      model.singIn(_emailController.text, _passController.text,
+                          _onSuccess, _onFail);
+                    },
+                    child: const Text(
+                      "ENTRAR",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    textColor: Colors.white,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ],
+              ),
+            );
+          }
+        },
+      ),
+    );
+  }
+
+  void _onSuccess() {
+    Navigator.of(context).pop();
+  }
+
+  void _onFail() {
+    _scafoldKey.currentState!.showSnackBar(const SnackBar(
+      content: Text("Falha ao Logar"),
+      backgroundColor: Colors.redAccent,
+      duration: Duration(seconds: 2),
+    ));
+  }
+}

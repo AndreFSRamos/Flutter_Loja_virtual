@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:loja_uzzubiju/models/user_model.dart';
+import 'package:loja_uzzubiju/screens/login_screen.dart';
 import 'package:loja_uzzubiju/tiles/drawer_tile.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 // Widget "CustonDrawer" é responsavel pela contrução da tela de munu (DRAWER),
 // ela contem cada opção do munu, porem as cunfuionalidades são responsabulidade
@@ -11,13 +14,14 @@ class CustonDrawer extends StatelessWidget {
       : super(key: key);
 
   final PageController pageController;
+
 //================= INICIO DO CORPO DA DRAWER =================================
   @override
   Widget build(BuildContext context) {
     Widget _buildBodyBack() => Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color.fromARGB(255, 247, 131, 195), Colors.white],
+              colors: [Color.fromARGB(255, 248, 182, 218), Colors.white],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -47,24 +51,40 @@ class CustonDrawer extends StatelessWidget {
                     Positioned(
                       left: 0,
                       bottom: 0,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Olá",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          GestureDetector(
-                            child: Text(
-                              "Entre ou cadastre-se >",
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            onTap: () {},
-                          )
-                        ],
+                      child: ScopedModelDescendant<UserModel>(
+                        builder: (context, child, model) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Olá ${!model.isLoadingIn() ? "" : model.userdata["name"]}",
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              GestureDetector(
+                                child: Text(
+                                  !model.isLoadingIn()
+                                      ? "Entre ou cadastre-se >"
+                                      : "Sair",
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                onTap: () {
+                                  if (!model.isLoadingIn()) {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => LoginScreen(),
+                                      ),
+                                    );
+                                  } else {
+                                    model.singOut();
+                                  }
+                                },
+                              )
+                            ],
+                          );
+                        },
                       ),
                     ),
                   ],
