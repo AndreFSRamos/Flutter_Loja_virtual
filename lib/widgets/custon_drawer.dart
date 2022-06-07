@@ -32,7 +32,7 @@ class CustonDrawer extends StatelessWidget {
         children: [
           _buildBodyBack(),
           ListView(
-            padding: const EdgeInsets.only(left: 32, top: 16),
+            padding: const EdgeInsets.only(left: 32, top: 30),
             children: [
               Container(
                 margin: const EdgeInsets.fromLTRB(0, 16, 16, 8),
@@ -53,6 +53,7 @@ class CustonDrawer extends StatelessWidget {
                       bottom: 0,
                       child: ScopedModelDescendant<UserModel>(
                         builder: (context, child, model) {
+                          print("usuario Logado: ${model.isLoadingIn()}");
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -74,7 +75,8 @@ class CustonDrawer extends StatelessWidget {
                                   if (!model.isLoadingIn()) {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (context) => LoginScreen(),
+                                        builder: (context) =>
+                                            const LoginScreen(),
                                       ),
                                     );
                                   } else {

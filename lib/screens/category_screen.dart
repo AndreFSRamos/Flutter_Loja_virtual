@@ -19,6 +19,7 @@ class CategoryScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 214, 21, 125),
           title: Text(snapshot["title"]),
           centerTitle: true,
           bottom: const TabBar(

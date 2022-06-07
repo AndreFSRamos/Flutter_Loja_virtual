@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:loja_uzzubiju/models/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'screens/home_screen.dart';
@@ -22,13 +23,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ));
     UserModel userModel = UserModel();
     return ScopedModel<UserModel>(
       model: userModel,
       child: MaterialApp(
         theme: ThemeData(
           primarySwatch: Colors.pink,
-          primaryColor: const Color.fromARGB(255, 243, 52, 110),
+          primaryColor: const Color.fromARGB(255, 214, 21, 125),
         ),
         //comando para retirar a TAG de modo debug.
         debugShowCheckedModeBanner: false,

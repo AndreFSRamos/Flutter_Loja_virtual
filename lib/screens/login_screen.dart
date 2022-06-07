@@ -24,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       key: _scafoldKey,
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 214, 21, 125),
         title: const Text("ENTRAR"),
         centerTitle: true,
         actions: [
@@ -76,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     obscureText: true,
                     validator: (text) {
-                      if (text!.isEmpty || text.length < 6) {
+                      if (text!.isEmpty) {
                         return "Senha invalida";
                       }
                       return null;
@@ -85,7 +86,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (_emailController.text.isEmpty) {
+                          _scafoldKey.currentState!.showSnackBar(const SnackBar(
+                            content: Text("Insira seu email para recuperação!"),
+                            backgroundColor: Colors.redAccent,
+                            duration: Duration(seconds: 2),
+                          ));
+                        } else {
+                          model.recoverPass(_emailController.text, _onFail);
+                          _scafoldKey.currentState!.showSnackBar(const SnackBar(
+                            content: Text("Confira seu email!"),
+                            backgroundColor: Colors.redAccent,
+                            duration: Duration(seconds: 2),
+                          ));
+                        }
+                      },
                       child: const Text(
                         "Esqueci minha senha!",
                         textAlign: TextAlign.right,
@@ -121,9 +137,9 @@ class _LoginScreenState extends State<LoginScreen> {
     Navigator.of(context).pop();
   }
 
-  void _onFail() {
-    _scafoldKey.currentState!.showSnackBar(const SnackBar(
-      content: Text("Falha ao Logar"),
+  void _onFail(String textError) {
+    _scafoldKey.currentState!.showSnackBar(SnackBar(
+      content: Text(textError),
       backgroundColor: Colors.redAccent,
       duration: Duration(seconds: 2),
     ));

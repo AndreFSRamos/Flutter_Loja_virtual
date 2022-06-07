@@ -25,6 +25,7 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 214, 21, 125),
         title: Text(widget.data.title),
         centerTitle: true,
       ),

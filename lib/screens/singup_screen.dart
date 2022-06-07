@@ -24,6 +24,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
     return Scaffold(
       key: _scafoldKey,
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 214, 21, 125),
         title: const Text("Criar Conta"),
         centerTitle: true,
       ),
@@ -94,13 +95,13 @@ class _SingUpScreenState extends State<SingUpScreen> {
               const SizedBox(height: 16),
               RaisedButton(
                 onPressed: () {
-                  Map<String, dynamic> userdata = {
-                    "name": _nameController.text,
-                    "email": _emailController.text,
-                    "address": _addressController.text,
-                  };
-
                   if (_formKey.currentState!.validate()) {
+                    Map<String, dynamic> userdata = {
+                      "name": _nameController.text,
+                      "email": _emailController.text,
+                      "address": _addressController.text,
+                    };
+
                     model.singUp(
                         userdata, _passController.text, _onSuccess, _onFail);
                   }
