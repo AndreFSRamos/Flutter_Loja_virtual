@@ -63,14 +63,17 @@ class CategoryScreen extends StatelessWidget {
                             childAspectRatio: 0.65),
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
+                      ProductsData data = ProductsData.fromDocuments(
+                        snapshot.data!.docs[index],
+                      );
+                      data.category = this.snapshot.id;
+
                       //Chama o widger "ProdutsTile" para cada item da coleção, pra construir um CARD
                       // de apresentação, passando por parametro uma string e o item, a strig determinda
                       //se é para exibir em forma de GRID ou LIST.
                       return ProductsTile(
                         type: "grid",
-                        data: ProductsData.fromDocuments(
-                          snapshot.data!.docs[index],
-                        ),
+                        data: data,
                       );
                     },
                   ),
@@ -79,14 +82,16 @@ class CategoryScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(4),
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: ((context, index) {
+                      ProductsData data = ProductsData.fromDocuments(
+                        snapshot.data!.docs[index],
+                      );
+                      data.category = this.snapshot.id;
                       //Chama o widger "ProdutsTile" para cada item da coleção, pra construir um CARD
                       // de apresentação, passando por parametro uma string e o item, a strig determinda
                       //se é para exibir em forma de GRID ou LIST.
                       return ProductsTile(
                         type: "list",
-                        data: ProductsData.fromDocuments(
-                          snapshot.data!.docs[index],
-                        ),
+                        data: data,
                       );
                     }),
                   ),

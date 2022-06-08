@@ -7,9 +7,11 @@ class ProductsData {
   late String title;
   late String description;
   late String category;
-  late double price;
+  late double price = 0.0;
   late List size;
   late List images;
+
+  ProductsData();
 
   ProductsData.fromDocuments(DocumentSnapshot snapshot) {
     id = snapshot.id;
@@ -18,7 +20,13 @@ class ProductsData {
     price = snapshot["price"] + 0.0;
     images = snapshot["images"];
     size = snapshot["size"];
+  }
 
-    //print("$id , $title, $description, $price, ${images[0]}, ${images[1]}");
+  Map<String, dynamic> toResumedMap() {
+    return {
+      "title": title,
+      "description": description,
+      "price": price,
+    };
   }
 }

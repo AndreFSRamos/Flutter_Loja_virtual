@@ -1,6 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:loja_uzzubiju/datas/cart_products.dart';
 import 'package:loja_uzzubiju/datas/products_data.dart';
+import 'package:loja_uzzubiju/models/cart_model.dart';
+import 'package:loja_uzzubiju/models/user_model.dart';
+import 'package:loja_uzzubiju/screens/cart_screen.dart';
+import 'package:loja_uzzubiju/screens/login_screen.dart';
 
 // Products Screenn é a page de compra do item, ela recebe por parametro o item
 // em questão, é contruida por uma carosel de imagem do item, valor, titulo, descrição
@@ -117,10 +122,32 @@ class _ProductScreenState extends State<ProductScreen> {
                 SizedBox(
                   height: 44,
                   child: ElevatedButton(
-                    onPressed: widget.size != "" ? () {} : null,
-                    child: const Text(
-                      "Adicionar ao carrinho",
-                      style: TextStyle(fontSize: 16),
+                    onPressed: widget.size != ""
+                        ? () {
+                            if (UserModel.of(context).isLoadingIn()) {
+                              CartProduct cartProduct = CartProduct();
+
+                              cartProduct.size = widget.size;
+                              cartProduct.quantity = 1;
+                              cartProduct.pid = widget.data.id;
+                              cartProduct.category = widget.data.category;
+                              cartProduct.productsData = widget.data;
+
+                              CartModel.of(context).addCartitem(cartProduct);
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const CartScreen()));
+                            } else {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const LoginScreen()));
+                            }
+                          }
+                        : null,
+                    child: Text(
+                      UserModel.of(context).isLoadingIn()
+                          ? "Adicionar ao carrinho"
+                          : "Entre para comprar",
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),

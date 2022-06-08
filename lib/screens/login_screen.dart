@@ -112,10 +112,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 16),
                   RaisedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
-
-                      model.singIn(_emailController.text, _passController.text,
-                          _onSuccess, _onFail);
+                      if (_formKey.currentState!.validate()) {
+                        model.singIn(_emailController.text,
+                            _passController.text, _onSuccess, _onFail);
+                      }
                     },
                     child: const Text(
                       "ENTRAR",
