@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loja_uzzubiju/tabs/orders_tab.dart';
 import 'package:loja_uzzubiju/widgets/cart_button.dart';
 import '../tabs/home_tab.dart';
+import '../tabs/places_tab.dart';
 import '../tabs/products_tab.dart';
 import '../widgets/custon_drawer.dart';
 
@@ -41,6 +42,16 @@ class HomeScreen extends StatelessWidget {
         ),
         Scaffold(
           appBar: AppBar(
+            title: const Text("Nossas lojas"),
+            centerTitle: true,
+          ),
+          drawer: CustonDrawer(
+            pageController: _pageController,
+          ),
+          body: PlacesTab(),
+        ),
+        Scaffold(
+          appBar: AppBar(
             title: const Text("Meus Pedidos"),
             centerTitle: true,
           ),
@@ -48,7 +59,7 @@ class HomeScreen extends StatelessWidget {
             pageController: _pageController,
           ),
           body: const OrdersTab(),
-        )
+        ),
       ],
     );
   }
