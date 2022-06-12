@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_uzzubiju/datas/products_data.dart';
 import 'package:loja_uzzubiju/tiles/products_tile.dart';
+import 'package:loja_uzzubiju/widgets/circular_indicator.dart';
 
 //CategoryScreen é responsavel por exibir cada item da categoria, em forma de Grid
 // ou lisa, ela recebe por parametro as informações da categoria escolhida em
@@ -47,7 +48,7 @@ class CategoryScreen extends StatelessWidget {
             //indicando que está aguardando um resposta. Caso contrario, exibir a lista dos items
             // em forma de GRID ou LIST.
             if (!snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
+              return const CircularIndicator();
             } else {
               //======= INICIO DA CONSRUÇÃO DA GRID ========================================
               return TabBarView(

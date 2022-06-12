@@ -95,7 +95,6 @@ class CartTile extends StatelessWidget {
                   .doc(cartProduct.pid)
                   .get(),
               builder: (context, snapshot) {
-                print("Item recuperado : ${snapshot.data.toString()}");
                 if (snapshot.hasData) {
                   cartProduct.productsData =
                       ProductsData.fromDocuments(snapshot.data!);

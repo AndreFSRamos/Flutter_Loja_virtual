@@ -121,7 +121,7 @@ class _ProductScreenState extends State<ProductScreen> {
                 //================= BOTÃO ======================================
                 SizedBox(
                   height: 44,
-                  child: ElevatedButton(
+                  child: RaisedButton(
                     onPressed: widget.size != ""
                         ? () {
                             if (UserModel.of(context).isLoadingIn()) {
@@ -137,8 +137,10 @@ class _ProductScreenState extends State<ProductScreen> {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => const CartScreen()));
                             } else {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const LoginScreen()));
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const LoginScreen()));
                             }
                           }
                         : null,
@@ -147,8 +149,11 @@ class _ProductScreenState extends State<ProductScreen> {
                           ? "Adicionar ao carrinho"
                           : "Entre para comprar",
                       style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
                 const SizedBox(height: 16),

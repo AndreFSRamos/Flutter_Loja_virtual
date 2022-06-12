@@ -44,16 +44,18 @@ class HomeScreen extends StatelessWidget {
           appBar: AppBar(
             title: const Text("Nossas lojas"),
             centerTitle: true,
+            backgroundColor: const Color.fromARGB(255, 214, 21, 125),
           ),
           drawer: CustonDrawer(
             pageController: _pageController,
           ),
-          body: PlacesTab(),
+          body: const PlacesTab(),
         ),
         Scaffold(
           appBar: AppBar(
             title: const Text("Meus Pedidos"),
             centerTitle: true,
+            backgroundColor: const Color.fromARGB(255, 214, 21, 125),
           ),
           drawer: CustonDrawer(
             pageController: _pageController,

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_uzzubiju/tiles/category_tile.dart';
+import 'package:loja_uzzubiju/widgets/circular_indicator.dart';
 
 // ProductsTab é posição 1 da Drawer, nela é recuperado as informações da colleção
 //"products" no firebase e exibida em forma de lista, gerando uma lista de categoria
@@ -14,9 +15,7 @@ class ProductsTab extends StatelessWidget {
       future: FirebaseFirestore.instance.collection("products").get(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const CircularIndicator();
         } else {
           var dividedTiles = ListTile.divideTiles(
                   tiles: snapshot.data!.docs.map((doc) {

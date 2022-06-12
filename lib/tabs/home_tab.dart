@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:loja_uzzubiju/widgets/circular_indicator.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 //HOMETAB é page da posição 0 na DRAWER, ela contem uma grid de imagens com
@@ -60,9 +61,7 @@ class HomeTab extends StatelessWidget {
                     child: Container(
                       height: 200,
                       alignment: Alignment.center,
-                      child: const CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(Colors.white),
-                      ),
+                      child: const CircularIndicator(),
                     ),
                   );
                 } else {

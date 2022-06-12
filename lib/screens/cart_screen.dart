@@ -1,14 +1,12 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:loja_uzzubiju/models/cart_model.dart';
 import 'package:loja_uzzubiju/models/user_model.dart';
 import 'package:loja_uzzubiju/screens/login_screen.dart';
 import 'package:loja_uzzubiju/tiles/cart_tile.dart';
 import 'package:loja_uzzubiju/widgets/cart_price.dart';
+import 'package:loja_uzzubiju/widgets/circular_indicator.dart';
 import 'package:loja_uzzubiju/widgets/ship_cart.dart';
 import 'package:scoped_model/scoped_model.dart';
-
 import '../widgets/discount_cart.dart';
 import 'order_screen.dart';
 
@@ -20,6 +18,7 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Meu Carrinho"),
+        backgroundColor: const Color.fromARGB(255, 214, 21, 125),
         actions: [
           Container(
             padding: const EdgeInsets.only(right: 8),
@@ -38,9 +37,7 @@ class CartScreen extends StatelessWidget {
       body: ScopedModelDescendant<CartModel>(
         builder: (context, child, model) {
           if (model.isLoading && UserModel.of(context).isLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const CircularIndicator();
           } else if (!UserModel.of(context).isLoadingIn()) {
             return Container(
               padding: const EdgeInsets.all(16),
@@ -60,7 +57,7 @@ class CartScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 16),
-                  ElevatedButton(
+                  RaisedButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const LoginScreen()));
@@ -69,6 +66,7 @@ class CartScreen extends StatelessWidget {
                       "ENTRAR",
                       style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
+                    color: Theme.of(context).primaryColor,
                   ),
                 ],
               ),

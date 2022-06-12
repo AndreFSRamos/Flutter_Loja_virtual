@@ -9,6 +9,7 @@ class OrderScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Pedido Finalizado"),
+        backgroundColor: const Color.fromARGB(255, 214, 21, 125),
         centerTitle: true,
       ),
       body: Container(

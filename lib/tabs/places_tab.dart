@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:loja_uzzubiju/widgets/circular_indicator.dart';
 
 import '../tiles/places_tile.dart';
 
@@ -12,9 +13,7 @@ class PlacesTab extends StatelessWidget {
         future: FirebaseFirestore.instance.collection("places").get(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const CircularIndicator();
           } else {
             return ListView(
                 children: snapshot.data!.docs

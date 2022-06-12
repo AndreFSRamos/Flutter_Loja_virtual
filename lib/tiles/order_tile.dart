@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:loja_uzzubiju/widgets/circular_indicator.dart';
 
 class OrderTile extends StatelessWidget {
   const OrderTile({Key? key, required this.orderId}) : super(key: key);
@@ -21,9 +22,7 @@ class OrderTile extends StatelessWidget {
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const CircularIndicator();
             } else {
               int status = snapshot.data!["status"];
               return Column(

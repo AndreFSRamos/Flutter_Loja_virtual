@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_uzzubiju/models/user_model.dart';
+import 'package:loja_uzzubiju/widgets/circular_indicator.dart';
 
 import '../screens/login_screen.dart';
 import '../tiles/order_tile.dart';
@@ -21,9 +22,7 @@ class OrdersTab extends StatelessWidget {
             .get(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const CircularIndicator();
           } else {
             return ListView(
                 children: snapshot.data!.docs

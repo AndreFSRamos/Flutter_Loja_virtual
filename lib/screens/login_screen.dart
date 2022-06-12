@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:loja_uzzubiju/models/user_model.dart';
 import 'package:loja_uzzubiju/screens/singup_screen.dart';
+import 'package:loja_uzzubiju/widgets/circular_indicator.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -45,9 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: ScopedModelDescendant<UserModel>(
         builder: (context, child, model) {
           if (model.isLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const CircularIndicator();
           } else {
             return Form(
               key: _formKey,
