@@ -105,13 +105,6 @@ class UserModel extends Model {
     return usuario != null;
   }
 
-  /*_authCheck() {
-   _auth.authStateChanges().listen((User? user) {
-      usuario = (user == null) ? null : user;
-      notifyListeners();
-    });
-  }*/
-
   _getUser() {
     usuario = _auth.currentUser;
     notifyListeners();

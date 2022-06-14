@@ -1,8 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:loja_uzzubiju/models/result_cep_model.dart';
 import 'package:loja_uzzubiju/models/user_model.dart';
 import 'package:loja_uzzubiju/widgets/circular_indicator.dart';
+import 'package:loja_uzzubiju/widgets/text_field.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class SingUpScreen extends StatefulWidget {
@@ -17,8 +20,15 @@ class _SingUpScreenState extends State<SingUpScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
-  final _addressController = TextEditingController();
+  final _cepController = TextEditingController();
+  final _nameStreetController = TextEditingController();
+  final _numberAddressController = TextEditingController();
+  final _districtController = TextEditingController();
+  final _cityController = TextEditingController();
+  final _stateController = TextEditingController();
   final _scafoldKey = GlobalKey<ScaffoldState>();
+  late var teste = {};
+  bool verifica = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +51,8 @@ class _SingUpScreenState extends State<SingUpScreen> {
               TextFormField(
                 controller: _nameController,
                 decoration: const InputDecoration(
-                  hintText: "Nome Comleto",
+                  border: OutlineInputBorder(),
+                  labelText: "Nome Comleto",
                 ),
                 validator: (text) {
                   if (text!.isEmpty) {
@@ -50,10 +61,12 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   return null;
                 },
               ),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _emailController,
                 decoration: const InputDecoration(
-                  hintText: "E-mail",
+                  border: OutlineInputBorder(),
+                  labelText: "E-mail",
                 ),
                 keyboardType: TextInputType.emailAddress,
                 validator: (text) {
@@ -69,7 +82,9 @@ class _SingUpScreenState extends State<SingUpScreen> {
               TextFormField(
                 controller: _passController,
                 decoration: const InputDecoration(
-                  hintText: "Senha",
+                  border: OutlineInputBorder(),
+                  labelText: "Senha",
+                  hintText: "Sua senha deve conter no minimo 7 caracteres.",
                 ),
                 obscureText: true,
                 validator: (text) {
@@ -79,31 +94,115 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   return null;
                 },
               ),
-              TextFormField(
-                controller: _addressController,
-                decoration: const InputDecoration(
-                  hintText: "Endereço",
-                ),
-                validator: (text) {
-                  if (text!.isEmpty) {
-                    return "Endereço Invalido";
-                  }
-                  return null;
-                },
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    // Campo de texo da barra de pesquisa.
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      controller: _cepController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "CEP",
+                        hintText: "Exp: 80800-800",
+                      ),
+                      validator: (text) {
+                        if (text!.isEmpty) {
+                          return "CEP Invalido";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  //Botão de pesquisa.
+                  TextButton(
+                    onPressed: () async {
+                      final result =
+                          await ViaCepService.requestAPI(_cepController.text);
+                      teste = jsonDecode(result);
+                      setState(() {
+                        verifica = true;
+                      });
+                    },
+                    child: Icon(
+                      Icons.search,
+                      color: Theme.of(context).primaryColor,
+                      size: 30,
+                    ),
+                  ),
+                ],
               ),
+              const SizedBox(height: 16),
+              verifica == true
+                  ? Column(
+                      children: [
+                        TextFieldAux(
+                          label: teste['logradouro'],
+                          enable: false,
+                          controller: _nameStreetController,
+                          hint: "",
+                          keyType: TextInputType.number,
+                        ),
+                        const SizedBox(height: 16),
+                        TextFieldAux(
+                          label: "Nº da residência.",
+                          enable: true,
+                          controller: _numberAddressController,
+                          hint: "",
+                          keyType: TextInputType.number,
+                        ),
+                        const SizedBox(height: 16),
+                        TextFieldAux(
+                          label: "Bairro: ${teste['bairro']}",
+                          enable: false,
+                          controller: _districtController,
+                          hint: "",
+                          keyType: TextInputType.number,
+                        ),
+                        const SizedBox(height: 16),
+                        TextFieldAux(
+                          label: "Cidade: ${teste['localidade']}",
+                          enable: false,
+                          controller: _cityController,
+                          hint: "",
+                          keyType: TextInputType.number,
+                        ),
+                        const SizedBox(height: 16),
+                        TextFieldAux(
+                          label: "Estado: ${teste['uf']}",
+                          enable: false,
+                          controller: _stateController,
+                          hint: "",
+                          keyType: TextInputType.number,
+                        ),
+                      ],
+                    )
+                  : Container(
+                      color: Colors.red,
+                      height: 50,
+                    ),
               const SizedBox(height: 16),
               RaisedButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
+                  if (_formKey.currentState!.validate() &&
+                      _numberAddressController.text.isNotEmpty) {
                     Map<String, dynamic> userdata = {
                       "name": _nameController.text,
                       "email": _emailController.text,
-                      "address": _addressController.text,
+                      "address": teste['logradouro'],
+                      "district": teste['bairro'],
+                      "state": teste['uf'],
+                      "numberAddress": _numberAddressController.text,
+                      "cep": teste['cep'],
                     };
 
                     model.singUp(
                         userdata, _passController.text, _onSuccess, _onFail);
                   }
+                  setState(() {
+                    verifica = true;
+                  });
                 },
                 child: const Text(
                   "CRIAR CONTA",

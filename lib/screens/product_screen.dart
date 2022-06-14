@@ -20,6 +20,7 @@ class ProductScreen extends StatefulWidget {
   //variavael "size" auxiliar do efeito de desabilitar  e habilitar o botão de
   //adicionar o carrinho.
   String size = "";
+  String typePayment = "";
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -118,16 +119,60 @@ class _ProductScreenState extends State<ProductScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
+                const Text(
+                  "Forma de Pagamento",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                SizedBox(
+                  height: 36,
+                  child: GridView(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    scrollDirection: Axis.horizontal,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            mainAxisSpacing: 8,
+                            childAspectRatio: 0.5),
+                    children: widget.data.typePayment.map((optionTypePayment) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            widget.typePayment = optionTypePayment;
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(4),
+                            ),
+                            border: Border.all(
+                                color: optionTypePayment == widget.typePayment
+                                    ? Theme.of(context).primaryColor
+                                    : Colors.grey,
+                                width: 3),
+                          ),
+                          width: 50,
+                          alignment: Alignment.center,
+                          child: Text(
+                            optionTypePayment,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+                const SizedBox(height: 16),
                 //================= BOTÃO ======================================
                 SizedBox(
                   height: 44,
                   child: RaisedButton(
-                    onPressed: widget.size != ""
+                    onPressed: widget.size != "" && widget.typePayment != ""
                         ? () {
                             if (UserModel.of(context).isLoadingIn()) {
                               CartProduct cartProduct = CartProduct();
 
                               cartProduct.size = widget.size;
+                              cartProduct.typePayment = widget.typePayment;
                               cartProduct.quantity = 1;
                               cartProduct.pid = widget.data.id;
                               cartProduct.category = widget.data.category;

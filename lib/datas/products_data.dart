@@ -9,6 +9,7 @@ class ProductsData {
   late String category;
   late double price = 0.0;
   late List size;
+  late List typePayment;
   late List images;
 
   ProductsData();
@@ -20,6 +21,7 @@ class ProductsData {
     price = snapshot["price"] + 0.0;
     images = snapshot["images"];
     size = snapshot["size"];
+    typePayment = snapshot["typePayment"];
   }
 
   Map<String, dynamic> toResumedMap() {
