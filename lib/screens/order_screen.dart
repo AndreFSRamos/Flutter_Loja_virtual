@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loja_uzzubiju/screens/home_screen.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({Key? key, required this.orderId}) : super(key: key);
@@ -11,6 +12,18 @@ class OrderScreen extends StatelessWidget {
         title: const Text("Pedido Finalizado"),
         backgroundColor: const Color.fromARGB(255, 214, 21, 125),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => HomeScreen(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.exit_to_app_rounded),
+          )
+        ],
       ),
       body: Container(
         padding: const EdgeInsets.all(16),

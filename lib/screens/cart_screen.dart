@@ -6,14 +6,14 @@ import 'package:loja_uzzubiju/tiles/cart_tile.dart';
 import 'package:loja_uzzubiju/widgets/cart_price.dart';
 import 'package:loja_uzzubiju/widgets/circular_indicator.dart';
 import 'package:loja_uzzubiju/widgets/ship_cart.dart';
-import 'package:loja_uzzubiju/widgets/type_payment.dart';
 import 'package:scoped_model/scoped_model.dart';
+import '../datas/products_data.dart';
 import '../widgets/discount_cart.dart';
 import 'order_screen.dart';
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({Key? key}) : super(key: key);
-
+  const CartScreen({Key? key, required this.data}) : super(key: key);
+  final ProductsData data;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +88,6 @@ class CartScreen extends StatelessWidget {
                 ),
                 const DiscountCart(),
                 const ShipCart(),
-                const TypePayment(),
                 CartPrice(buy: () async {
                   String orderId = await model.finishOder();
                   if (orderId != null) {

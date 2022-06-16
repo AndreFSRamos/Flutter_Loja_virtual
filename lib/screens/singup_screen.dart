@@ -178,32 +178,34 @@ class _SingUpScreenState extends State<SingUpScreen> {
                         ),
                       ],
                     )
-                  : Container(
-                      color: Colors.red,
-                      height: 50,
-                    ),
+                  : Container(),
               const SizedBox(height: 16),
               RaisedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate() &&
-                      _numberAddressController.text.isNotEmpty) {
-                    Map<String, dynamic> userdata = {
-                      "name": _nameController.text,
-                      "email": _emailController.text,
-                      "address": teste['logradouro'],
-                      "district": teste['bairro'],
-                      "state": teste['uf'],
-                      "numberAddress": _numberAddressController.text,
-                      "cep": teste['cep'],
-                    };
+                onPressed: _cepController.text.isNotEmpty &&
+                        _emailController.text.isNotEmpty &&
+                        _nameController.text.isNotEmpty &&
+                        _passController.text.isNotEmpty
+                    ? () {
+                        if (_formKey.currentState!.validate() &&
+                            _cepController.text.isNotEmpty) {
+                          Map<String, dynamic> userdata = {
+                            "name": _nameController.text,
+                            "email": _emailController.text,
+                            "address": teste['logradouro'],
+                            "district": teste['bairro'],
+                            "state": teste['uf'],
+                            "numberAddress": _numberAddressController.text,
+                            "cep": teste['cep'],
+                          };
 
-                    model.singUp(
-                        userdata, _passController.text, _onSuccess, _onFail);
-                  }
-                  setState(() {
-                    verifica = true;
-                  });
-                },
+                          model.singUp(userdata, _passController.text,
+                              _onSuccess, _onFail);
+                        }
+                        setState(() {
+                          verifica = true;
+                        });
+                      }
+                    : null,
                 child: const Text(
                   "CRIAR CONTA",
                   style: TextStyle(fontSize: 18),

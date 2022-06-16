@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_uzzubiju/datas/cart_products.dart';
 import 'package:loja_uzzubiju/datas/products_data.dart';
+import 'package:loja_uzzubiju/datas/result_cep.dart';
 import 'package:loja_uzzubiju/models/cart_model.dart';
 import 'package:loja_uzzubiju/models/user_model.dart';
 import 'package:loja_uzzubiju/screens/cart_screen.dart';
@@ -21,7 +23,7 @@ class ProductScreen extends StatefulWidget {
   //adicionar o carrinho.
   String size = "";
   String typePayment = "";
-
+  Map<String, dynamic> userdata = {};
   @override
   State<ProductScreen> createState() => _ProductScreenState();
 }
@@ -119,60 +121,17 @@ class _ProductScreenState extends State<ProductScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  "Forma de Pagamento",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                ),
-                SizedBox(
-                  height: 36,
-                  child: GridView(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                    scrollDirection: Axis.horizontal,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            mainAxisSpacing: 8,
-                            childAspectRatio: 0.5),
-                    children: widget.data.typePayment.map((optionTypePayment) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            widget.typePayment = optionTypePayment;
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(4),
-                            ),
-                            border: Border.all(
-                                color: optionTypePayment == widget.typePayment
-                                    ? Theme.of(context).primaryColor
-                                    : Colors.grey,
-                                width: 3),
-                          ),
-                          width: 50,
-                          alignment: Alignment.center,
-                          child: Text(
-                            optionTypePayment,
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-                const SizedBox(height: 16),
+
                 //================= BOTÃO ======================================
                 SizedBox(
                   height: 44,
                   child: RaisedButton(
-                    onPressed: widget.size != "" && widget.typePayment != ""
-                        ? () {
+                    onPressed: widget.size != ""
+                        ? () async {
                             if (UserModel.of(context).isLoadingIn()) {
                               CartProduct cartProduct = CartProduct();
 
                               cartProduct.size = widget.size;
-                              cartProduct.typePayment = widget.typePayment;
                               cartProduct.quantity = 1;
                               cartProduct.pid = widget.data.id;
                               cartProduct.category = widget.data.category;
@@ -180,7 +139,9 @@ class _ProductScreenState extends State<ProductScreen> {
 
                               CartModel.of(context).addCartitem(cartProduct);
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const CartScreen()));
+                                  builder: (context) => CartScreen(
+                                        data: widget.data,
+                                      )));
                             } else {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(

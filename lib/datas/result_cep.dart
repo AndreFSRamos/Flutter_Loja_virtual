@@ -50,4 +50,12 @@ class ResultCep {
         "ibge": ibge,
         "gia": gia,
       };
+
+  Map<String, dynamic> toResumedMap() {
+    return {
+      "city": localidade,
+      "district": bairro,
+      "state": uf,
+    };
+  }
 }

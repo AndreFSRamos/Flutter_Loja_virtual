@@ -7,7 +7,6 @@ class CartProduct {
   late String pid;
   late int quantity;
   late String size;
-  late String typePayment;
 
   ProductsData productsData = ProductsData();
   CartProduct();
@@ -18,7 +17,6 @@ class CartProduct {
     pid = document["pid"];
     quantity = document["quantity"];
     size = document["size"];
-    typePayment = document["typePayment"];
   }
 
   Map<String, dynamic> toMap() {
@@ -27,7 +25,6 @@ class CartProduct {
       "pid": pid,
       "quantity": quantity,
       "size": size,
-      "typePayment": typePayment,
       "product": productsData.toResumedMap(),
     };
   }

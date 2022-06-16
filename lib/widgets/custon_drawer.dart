@@ -58,7 +58,9 @@ class CustonDrawer extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Olá ${!model.isLoadingIn() ? "" : model.userdata["name"]}",
+                                !model.isLoadingIn()
+                                    ? "Seja Bem Vindo!"
+                                    : "Olá, ${model.userdata["name"]}",
                                 style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),

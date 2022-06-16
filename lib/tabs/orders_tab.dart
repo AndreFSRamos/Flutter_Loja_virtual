@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_uzzubiju/models/user_model.dart';
 import 'package:loja_uzzubiju/widgets/circular_indicator.dart';
-
 import '../screens/login_screen.dart';
 import '../tiles/order_tile.dart';
 
@@ -13,7 +12,6 @@ class OrdersTab extends StatelessWidget {
   Widget build(BuildContext context) {
     if (UserModel.of(context).isLoadingIn()) {
       String uid = UserModel.of(context).usuario!.uid;
-
       return FutureBuilder<QuerySnapshot>(
         future: FirebaseFirestore.instance
             .collection("users")

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:loja_uzzubiju/datas/cart_products.dart';
+import 'package:loja_uzzubiju/datas/result_cep.dart';
 import 'package:loja_uzzubiju/models/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -12,6 +13,7 @@ class CartModel extends Model {
   bool isLoading = false;
   String cupomCode = "";
   int discountPercentage = 0;
+  String typePayment = "";
 
   CartModel(this.user) {
     if (user.isLoadingIn()) {
@@ -87,6 +89,10 @@ class CartModel extends Model {
     this.discountPercentage = discountPercentage;
   }
 
+  void typePay(String pay) {
+    typePayment = pay;
+  }
+
   double getProductsPrice() {
     double price = 0.0;
     for (CartProduct c in products) {
@@ -123,6 +129,15 @@ class CartModel extends Model {
     double productsPrice = getProductsPrice();
     double shipPrice = getShipPrice();
     double discount = getDiscount();
+    ResultCep resultCep = ResultCep(
+        cep: "",
+        logradouro: " logradouro",
+        complemento: "complemento",
+        bairro: "bairro",
+        localidade: "localidade",
+        uf: "uf",
+        ibge: "ibge",
+        gia: "");
 
     DocumentReference refOder =
         await FirebaseFirestore.instance.collection("orders").add({
@@ -131,7 +146,9 @@ class CartModel extends Model {
       "shipPrice": shipPrice,
       "discount": discount,
       "totalPrice": productsPrice + shipPrice - discount,
-      "status": 1
+      "status": 1,
+      "typePayment": typePayment,
+      "address": resultCep.toResumedMap(),
     });
 
     await FirebaseFirestore.instance
