@@ -1,16 +1,39 @@
-# loja_uzzubiju
+# Chat Online
 
-A new Flutter project.
+## Descrição.
 
-## Getting Started
+## Projeto ainda em desenvolvimento.
 
-This project is a starting point for a Flutter application.
+<p>Projeto de uma loja virtual desenvolvida com o flamework FLutter, linguagem Dart, banco de dados firebase, API Viap CEP. Projeto de o objetivo de entender a estrutura de uma loja virtual e seu processo por um todo, desde o anuncio do produto até a entrega do mesmo, visando a coerências dos dados do pedido, como usuário logado, endereço de entrega, produtos e seus cálculos. </p>
 
-A few resources to get you started if this is your first Flutter project:
+## Tecnologias.
+#### Linguagem : dart.
+#### Framework : Flutter.
+#### Data Base : Firebase > FireStore Database.
+#### API via CEP.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Funcionalidades
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### 001 - Logar.
+#### 002 - Cadastrar Usuário.
+#### 003 - Cadastrar Produto.
+#### 004 - Cadastrar entreço de loja fisica.
+#### 005 - Cadastrar Produto.
+#### 006 - Cadastrar Categoria de Protudo.
+#### 007 - Adicionar Produto ao Carrinho.
+#### 009 - Excluir Produto do Carrinho. 
+#### 010 - Alterar quantidade de Produtos do Carrinho.
+#### 011 - Acompanhar Pedidos.
+#### 012 - Visualisar Carrinho.
+#### 013 - Recuperar Senha.
+#### 012 - Visualizar produtos por categoria.
+
+
+
+## Ilustração
+
+![Gif de apresentação do projéto](https://github.com/AndreFSRamos/GifCards/blob/main/loja_virtual01.gif)
+
+## Autor
+
+https://www.linkedin.com/in/andre-felipe-763a4a139/
